@@ -10,8 +10,8 @@ import java.util.concurrent.CompletableFuture
  *
  * This class serves the connected [LanguageClient] [WorkspaceService] and [TextDocumentService] services.
  *
- * @author Thomas Kluiters
- * @since 1.0.0
+ * @author  Thomas Kluiters
+ * @since   1.0.0
  */
 class SpoofaxLanguageServer : LanguageServer, LanguageClientAware {
 
