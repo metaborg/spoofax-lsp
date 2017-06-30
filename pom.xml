@@ -5,6 +5,7 @@
 
     <artifactId>spoofax.lsp</artifactId>
     <description>Language Server implementation for Spoofax languages</description>
+    <version>1.0.0-SNAPSHOT</version>
     <url>https://github.com/metaborg/spoofax-lsp</url>
 
     <parent>
