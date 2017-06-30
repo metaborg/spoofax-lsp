@@ -1,2 +1,3 @@
-# we don't need .idea folders in our repository
+# we don't need .idea or target folders in our repository
 .idea/
+target/
