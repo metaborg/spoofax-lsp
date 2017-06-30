@@ -1,5 +1,6 @@
 package org.metaborg.spoofax.lsp
 
+import com.google.inject.Inject
 import org.eclipse.lsp4j.InitializeParams
 import org.eclipse.lsp4j.InitializeResult
 import org.eclipse.lsp4j.services.*
@@ -13,7 +14,10 @@ import java.util.concurrent.CompletableFuture
  * @author  Thomas Kluiters
  * @since   1.0.0
  */
-class SpoofaxLanguageServer : LanguageServer, LanguageClientAware {
+class SpoofaxLanguageServer @Inject constructor(
+        private val textDocumentService: TextDocumentService,
+        private val workspaceService: WorkspaceService
+) : LanguageServer, LanguageClientAware {
 
     override fun initialize(initializeParams: InitializeParams?): CompletableFuture<InitializeResult> {
         TODO("not implemented")
@@ -28,11 +32,11 @@ class SpoofaxLanguageServer : LanguageServer, LanguageClientAware {
     }
 
     override fun getTextDocumentService(): TextDocumentService {
-        TODO("not implemented")
+        return textDocumentService
     }
 
     override fun getWorkspaceService(): WorkspaceService {
-        TODO("not implemented")
+        return workspaceService
     }
 
     override fun connect(client: LanguageClient?) {
