@@ -2,6 +2,8 @@ package org.metaborg.spoofax.lsp.services
 
 import org.eclipse.lsp4j.*
 import org.eclipse.lsp4j.jsonrpc.messages.Either
+import org.eclipse.lsp4j.services.LanguageClient
+import org.eclipse.lsp4j.services.LanguageClientAware
 import org.eclipse.lsp4j.services.TextDocumentService
 import java.util.concurrent.CompletableFuture
 
@@ -14,7 +16,11 @@ import java.util.concurrent.CompletableFuture
  * @author  Thomas Kluiters
  * @since   1.0.0
  */
-class SpoofaxTextDocumentService : TextDocumentService {
+class SpoofaxTextDocumentService : TextDocumentService, LanguageClientAware {
+
+    override fun connect(client: LanguageClient?) {
+        TODO("not implemented")
+    }
 
     override fun resolveCompletionItem(unresolved: CompletionItem?): CompletableFuture<CompletionItem> {
         TODO("not implemented")

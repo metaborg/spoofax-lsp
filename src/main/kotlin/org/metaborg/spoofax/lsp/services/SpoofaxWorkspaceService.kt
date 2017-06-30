@@ -1,6 +1,8 @@
 package org.metaborg.spoofax.lsp.services
 
 import org.eclipse.lsp4j.*
+import org.eclipse.lsp4j.services.LanguageClient
+import org.eclipse.lsp4j.services.LanguageClientAware
 import org.eclipse.lsp4j.services.WorkspaceService
 import java.util.concurrent.CompletableFuture
 
@@ -14,7 +16,11 @@ import java.util.concurrent.CompletableFuture
  * @author  Thomas Kluiters
  * @since   1.0.0
  */
-class SpoofaxWorkspaceService : WorkspaceService {
+class SpoofaxWorkspaceService : WorkspaceService, LanguageClientAware {
+
+    override fun connect(client: LanguageClient?) {
+        TODO("not implemented")
+    }
 
     override fun executeCommand(params: ExecuteCommandParams?): CompletableFuture<Any> {
         TODO("not implemented")
