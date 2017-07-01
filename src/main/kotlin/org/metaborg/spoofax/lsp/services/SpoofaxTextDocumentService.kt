@@ -18,8 +18,10 @@ import java.util.concurrent.CompletableFuture
  */
 class SpoofaxTextDocumentService : TextDocumentService, LanguageClientAware {
 
+    private var client : LanguageClient? = null
+
     override fun connect(client: LanguageClient?) {
-        TODO("not implemented")
+        this.client = client
     }
 
     override fun resolveCompletionItem(unresolved: CompletionItem?): CompletableFuture<CompletionItem> {

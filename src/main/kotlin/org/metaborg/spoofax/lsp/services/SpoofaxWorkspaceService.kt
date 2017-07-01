@@ -18,8 +18,10 @@ import java.util.concurrent.CompletableFuture
  */
 class SpoofaxWorkspaceService : WorkspaceService, LanguageClientAware {
 
+    private var client : LanguageClient? = null
+
     override fun connect(client: LanguageClient?) {
-        TODO("not implemented")
+        this.client = client
     }
 
     override fun executeCommand(params: ExecuteCommandParams?): CompletableFuture<Any> {
