@@ -6,6 +6,8 @@ import org.eclipse.lsp4j.InitializeResult
 import org.eclipse.lsp4j.services.*
 import org.metaborg.spoofax.lsp.services.SpoofaxTextDocumentService
 import org.metaborg.spoofax.lsp.services.SpoofaxWorkspaceService
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.util.concurrent.CompletableFuture
 
 /**
@@ -21,16 +23,25 @@ class SpoofaxLanguageServer @Inject constructor(
         private val workspaceService: SpoofaxWorkspaceService
 ) : LanguageServer, LanguageClientAware {
 
+    companion object {
+        val logger: Logger = LoggerFactory.getLogger(SpoofaxLanguageServer::class.java)
+    }
+
     override fun initialize(initializeParams: InitializeParams?): CompletableFuture<InitializeResult> {
-        TODO("not implemented")
+        return CompletableFuture.supplyAsync {
+            logger.info("Initialising new Language Server instance")
+            InitializeResult()
+        }
     }
 
     override fun shutdown(): CompletableFuture<Any> {
-        TODO("not implemented")
+        return CompletableFuture.supplyAsync({
+            logger.info("Shutting down Language Server instance")
+        })
     }
 
     override fun exit() {
-        TODO("not implemented")
+        logger.info("Exiting Language server instance")
     }
 
     override fun getTextDocumentService() = textDocumentService
@@ -38,8 +49,16 @@ class SpoofaxLanguageServer @Inject constructor(
     override fun getWorkspaceService() = workspaceService
 
     override fun connect(client: LanguageClient?) {
-        textDocumentService.connect(client)
-        workspaceService.connect(client)
+        when(client) {
+            null -> {
+                logger.error("Could not connect with language client because it was null, shutting down")
+                shutdown()
+            }
+            else -> {
+                textDocumentService.connect(client)
+                workspaceService.connect(client)
+            }
+        }
     }
 
 }
