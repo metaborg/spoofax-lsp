@@ -14,14 +14,14 @@ import org.apache.commons.vfs2.provider.AbstractFileSystem
  * @author  Thomas Kluiters
  * @since   1.0.0
  */
-class VirtualWorkspaceFileSystem(rootName: FileName?, parentLayer: FileObject?, fileSystemOptions: FileSystemOptions?)
-    : AbstractFileSystem(rootName, parentLayer, fileSystemOptions) {
+class VirtualWorkspaceFileSystem(rootName: FileName?, fileSystemOptions: FileSystemOptions?)
+    : AbstractFileSystem(rootName, null, fileSystemOptions) {
 
     override fun createFile(abstractFileName: AbstractFileName): FileObject {
-        TODO("not implemented")
+        return VirtualWorkspaceFileObject(abstractFileName, this)
     }
 
-    override fun addCapabilities(p0: MutableCollection<Capability>?) {
-        TODO("not implemented")
+    override fun addCapabilities(capabilities: MutableCollection<Capability>?) {
+
     }
 }
