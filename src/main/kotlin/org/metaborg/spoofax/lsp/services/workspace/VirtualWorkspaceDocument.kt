@@ -2,6 +2,7 @@ package org.metaborg.spoofax.lsp.services.workspace
 
 import org.eclipse.lsp4j.Position
 import org.eclipse.lsp4j.TextDocumentContentChangeEvent
+import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 /**
@@ -13,7 +14,7 @@ class VirtualWorkspaceDocument(private val data : StringBuilder = StringBuilder(
     companion object {
         val delimiters = listOf("\r\n", "\n", "\r")
 
-        val logger = LoggerFactory.getLogger(VirtualWorkspaceDocument::class.java)
+        val logger: Logger = LoggerFactory.getLogger(VirtualWorkspaceDocument::class.java)
     }
 
     private var version = 0;
