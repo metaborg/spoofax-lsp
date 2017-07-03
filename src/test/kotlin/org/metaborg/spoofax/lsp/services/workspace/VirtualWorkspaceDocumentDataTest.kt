@@ -25,20 +25,20 @@ internal class VirtualWorkspaceDocumentDataTest : Spek({
         document.applyChange(createEvent(Position(0, 1), "hello world\n"))
 
         it("should return 'hello world'\n' if it's content is queried") {
-            assertEquals("hello world\n", document.getText())
+            assertEquals("hello world\n", document.text)
         }
 
         on("applying a change event with text 'foo\n' to the end of the document") {
             document.applyChange(createEvent(Position(1, 1), "foo\n"))
             it("should return 'hello world\nfoo\n when it's content is queried") {
-                assertEquals("hello world\nfoo\n", document.getText())
+                assertEquals("hello world\nfoo\n", document.text)
             }
         }
 
         on("applying a change event with text 'bar\n' to the start of the document") {
             document.applyChange(createEvent(Position(0, 1), "bar\n"))
             it("should return 'bar\nhello world\nfoo\n when it's content is queried") {
-                assertEquals("bar\nhello world\nfoo\n", document.getText())
+                assertEquals("bar\nhello world\nfoo\n", document.text)
             }
         }
 

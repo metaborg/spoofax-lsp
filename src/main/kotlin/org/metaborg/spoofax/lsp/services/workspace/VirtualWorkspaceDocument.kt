@@ -9,9 +9,7 @@ import org.slf4j.LoggerFactory
  * @author  Thomas Kluiters
  * @since   1.0.0
  */
-class VirtualWorkspaceDocument(val remote: String, data: String) {
-
-    private val data: StringBuilder = StringBuilder(data)
+class VirtualWorkspaceDocument(val remote: String, initial: String) {
 
     companion object {
         val delimiters = listOf("\r\n", "\n", "\r")
@@ -19,7 +17,13 @@ class VirtualWorkspaceDocument(val remote: String, data: String) {
         val logger: Logger = LoggerFactory.getLogger(VirtualWorkspaceDocument::class.java)
     }
 
-    var version = 0;
+    val data = StringBuilder(initial)
+
+    val text
+        get() = data.toString()
+
+    var version = 0
+        private set
 
     /**
      * Computes the offset (absolute index) of the given position (line : character).
@@ -31,6 +35,7 @@ class VirtualWorkspaceDocument(val remote: String, data: String) {
     fun computeOffset(position: Position): Int? {
         val lineOffset = (0..position.line).reduce { index, _ ->
             when(index) {
+                // if no new lines are found, cascade into -1
                 -1   -> -1
                 else -> data.indexOfAny(delimiters, index);
             }
@@ -62,7 +67,7 @@ class VirtualWorkspaceDocument(val remote: String, data: String) {
     }
 
     /**
-     * Clears the current data buffer and appends the given text to it.
+     * Clears the current initial buffer and appends the given text to it.
      *
      * @param text the new text this document is initialised with.
      */
@@ -71,10 +76,4 @@ class VirtualWorkspaceDocument(val remote: String, data: String) {
         data.append(text)
     }
 
-    /**
-     * Returns the content of this document in a [String] format.
-     *
-     * @return this documents' content.
-     */
-    fun getText() = data.toString()
 }
