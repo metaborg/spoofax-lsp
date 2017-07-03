@@ -9,7 +9,9 @@ import org.slf4j.LoggerFactory
  * @author  Thomas Kluiters
  * @since   1.0.0
  */
-class VirtualWorkspaceDocument(private val data : StringBuilder = StringBuilder()) {
+class VirtualWorkspaceDocument(val remote: String, data: String) {
+
+    private val data: StringBuilder = StringBuilder(data)
 
     companion object {
         val delimiters = listOf("\r\n", "\n", "\r")
@@ -17,7 +19,7 @@ class VirtualWorkspaceDocument(private val data : StringBuilder = StringBuilder(
         val logger: Logger = LoggerFactory.getLogger(VirtualWorkspaceDocument::class.java)
     }
 
-    private var version = 0;
+    var version = 0;
 
     /**
      * Computes the offset (absolute index) of the given position (line : character).
