@@ -8,10 +8,10 @@ import org.slf4j.LoggerFactory
  * @author  Thomas Kluiters
  * @since   1.0.0
  */
-class VirtualWorkspaceDocumentData(private val data : StringBuilder = StringBuilder()) {
+class VirtualWorkspaceDocument(private val data : StringBuilder = StringBuilder()) {
 
     companion object {
-        val logger = LoggerFactory.getLogger(VirtualWorkspaceDocumentData::class.java)
+        val logger = LoggerFactory.getLogger(VirtualWorkspaceDocument::class.java)
     }
 
     private var version = 0;

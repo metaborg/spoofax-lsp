@@ -4,7 +4,6 @@ import org.eclipse.lsp4j.Position
 import org.eclipse.lsp4j.Range
 import org.eclipse.lsp4j.TextDocumentContentChangeEvent
 import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
@@ -21,7 +20,7 @@ internal class VirtualWorkspaceDocumentDataTest : Spek({
 
     given("a text document with the text 'hello world\n' appended to") {
 
-        val document = VirtualWorkspaceDocumentData()
+        val document = VirtualWorkspaceDocument()
         document.applyChange(createEvent(Position(0, 0), "hello world\n"))
 
         it("should return 'hello world'\n' if it's content is queried") {
@@ -46,7 +45,7 @@ internal class VirtualWorkspaceDocumentDataTest : Spek({
 
     given("a document initialised with the string 'hello world\n'") {
 
-        val document = VirtualWorkspaceDocumentData(StringBuilder("hello world\n"))
+        val document = VirtualWorkspaceDocument(StringBuilder("hello world\n"))
 
         on("computing the offset with position (0, 1)") {
             val offset = document.computeOffset(Position(0, 1))
@@ -80,7 +79,7 @@ internal class VirtualWorkspaceDocumentDataTest : Spek({
 
     given("a document initialised with the string 'hello world'") {
 
-        val document = VirtualWorkspaceDocumentData(StringBuilder("hello world"))
+        val document = VirtualWorkspaceDocument(StringBuilder("hello world"))
 
         on("computing the offset with position (0, 1)") {
             val offset = document.computeOffset(Position(0, 1))
