@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory
 class VirtualWorkspaceDocument(private val data : StringBuilder = StringBuilder()) {
 
     companion object {
+        val delimiters = listOf("\r\n", "\n", "\r")
+
         val logger = LoggerFactory.getLogger(VirtualWorkspaceDocument::class.java)
     }
 
@@ -24,7 +26,17 @@ class VirtualWorkspaceDocument(private val data : StringBuilder = StringBuilder(
      * @return the offset of the given position or null if the position is not in this document.
      */
     fun computeOffset(position: Position): Int? {
-        return -1
+        val lineOffset = (0..position.line).reduce { index, _ ->
+            when(index) {
+                -1   -> -1
+                else -> data.indexOfAny(delimiters, index);
+            }
+        }
+        val offset = lineOffset + position.character + if (lineOffset > 0) 0 else -1
+        return when (lineOffset == -1 || offset > data.length) {
+            true -> null
+            false-> offset
+        }
     }
 
     /**
@@ -33,7 +45,17 @@ class VirtualWorkspaceDocument(private val data : StringBuilder = StringBuilder(
      * @param change the change that have to be applied to this document
      */
     fun applyChange(change: TextDocumentContentChangeEvent): Unit {
-
+        version.inc()
+        change.range?.apply {
+            val startOffset = computeOffset(start) ?:
+                    return logger.warn("Start {} is out of bounds", start)
+            val endOffset   = computeOffset(end) ?:
+                    return logger.warn("End {} is out of bounds", end)
+            when(startOffset) {
+                data.length -> data.append(change.text)
+                else        -> data.replace(startOffset, endOffset, change.text)
+            }
+        } ?: setText(change.text)
     }
 
     /**
