@@ -12,11 +12,12 @@ import kotlin.test.assertNull
 
 internal class VirtualWorkspaceDocumentDataTest : Spek({
 
-    fun createEvent(position : Position, text: String): TextDocumentContentChangeEvent =
-            TextDocumentContentChangeEvent(Range(position, position), 0, text)
 
     fun createEvent(range: Range, text: String): TextDocumentContentChangeEvent =
         TextDocumentContentChangeEvent(range, 0, text)
+
+    fun createEvent(position : Position, text: String): TextDocumentContentChangeEvent =
+        createEvent(Range(position, position), text)
 
     given("a text document with the text 'hello world\n' appended to") {
 
