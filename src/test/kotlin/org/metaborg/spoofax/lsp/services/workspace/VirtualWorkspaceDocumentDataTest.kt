@@ -21,7 +21,7 @@ internal class VirtualWorkspaceDocumentDataTest : Spek({
     given("a text document with the text 'hello world\n' appended to") {
 
         val document = VirtualWorkspaceDocument()
-        document.applyChange(createEvent(Position(0, 0), "hello world\n"))
+        document.applyChange(createEvent(Position(0, 1), "hello world\n"))
 
         it("should return 'hello world'\n' if it's content is queried") {
             assertEquals("hello world\n", document.getText())
@@ -63,8 +63,8 @@ internal class VirtualWorkspaceDocumentDataTest : Spek({
 
         on("computing the offset with position (1, 1)") {
             val offset = document.computeOffset(Position(1, 1))
-            it("should return 11") {
-                assertEquals(11, offset)
+            it("should return 12") {
+                assertEquals("hello world\n".length, offset)
             }
         }
 
