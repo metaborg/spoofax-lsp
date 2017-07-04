@@ -4,7 +4,8 @@ import org.apache.http.client.utils.URIBuilder
 import java.net.URI
 
 /**
- * Created by Thomas on 4-7-2017.
+ * @author  Thomas Kluiters
+ * @since   1.0.0
  */
 class UriSchemeFilter : UriFilter {
 
