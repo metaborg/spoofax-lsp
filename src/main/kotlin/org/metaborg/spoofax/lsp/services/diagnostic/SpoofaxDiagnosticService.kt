@@ -1,8 +1,7 @@
 package org.metaborg.spoofax.lsp.services.diagnostic
 
-import org.apache.commons.vfs2.FileObject
 import org.eclipse.lsp4j.Diagnostic
-import org.metaborg.spoofax.lsp.services.workspace.VirtualWorkspaceFileObject
+import org.metaborg.spoofax.lsp.services.AnalysisRequestObject
 
 /**
  * @author  Thomas Kluiters
@@ -10,6 +9,6 @@ import org.metaborg.spoofax.lsp.services.workspace.VirtualWorkspaceFileObject
  */
 interface SpoofaxDiagnosticService {
 
-    fun performAnalysis(file: VirtualWorkspaceFileObject, root: FileObject): List<Diagnostic>
+    fun performAnalysis(request : AnalysisRequestObject): List<Diagnostic>
 
 }

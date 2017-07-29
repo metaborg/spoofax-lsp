@@ -1,7 +1,7 @@
 package org.metaborg.spoofax.lsp.services.diagnostic
 
 import org.eclipse.lsp4j.Diagnostic
-import org.metaborg.spoofax.lsp.services.workspace.VirtualWorkspaceFileObject
+import org.metaborg.spoofax.lsp.services.AnalysisRequestObject
 
 /**
  * @author  Thomas Kluiters
@@ -9,6 +9,6 @@ import org.metaborg.spoofax.lsp.services.workspace.VirtualWorkspaceFileObject
  */
 interface SpoofaxParserDiagnosticService {
 
-    fun performParsing(file: VirtualWorkspaceFileObject): List<Diagnostic>
+    fun performParsing(request : AnalysisRequestObject): List<Diagnostic>
 
 }
