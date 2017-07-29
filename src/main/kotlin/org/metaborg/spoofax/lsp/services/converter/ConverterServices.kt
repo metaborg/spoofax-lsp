@@ -11,6 +11,6 @@ import org.metaborg.spoofax.lsp.services.ConverterService
 /**
  * A Collections of interfaces for converting Spoofax objects to LSP objects.
  */
-interface DiagnosticConverterService : ConverterService<IMessage, Diagnostic>
-interface LocationConverterService : ConverterService<ISourceLocation, Location>
-interface RangeConverterService : ConverterService<ISourceRegion, Range>
+interface DiagnosticConverterService : ConverterService<IMessage?, Diagnostic>
+interface LocationConverterService : ConverterService<ISourceLocation?, Location>
+interface RangeConverterService : ConverterService<ISourceRegion?, Range>
