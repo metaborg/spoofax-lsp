@@ -1,10 +1,27 @@
 package org.metaborg.spoofax.lsp.services.diagnostic
 
+import com.google.inject.Inject
 import org.eclipse.lsp4j.Diagnostic
 import org.metaborg.spoofax.lsp.services.AnalysisRequestObject
+import org.metaborg.spoofax.lsp.services.converter.DiagnosticConverterService
 
-class SpoofaxDiagnosticServiceImpl : SpoofaxDiagnosticService {
+class SpoofaxDiagnosticServiceImpl @Inject constructor(
+        val spoofaxAnalysisDiagnosticService: SpoofaxAnalysisDiagnosticService,
+        val spoofaxParserDiagnosticService: SpoofaxParserDiagnosticService,
+        val diagnosticConverterService: DiagnosticConverterService
+): SpoofaxDiagnosticService {
+    /**
+     * Computes diagnostics, if Parsing succeeds then analysis is performed.
+     */
     override fun performAnalysis(request: AnalysisRequestObject): List<Diagnostic> {
-        TODO("not implemented")
+        return spoofaxParserDiagnosticService.performParsing(request)?.run{
+            when(success()) {
+                false ->
+                    messages().map(diagnosticConverterService::convert)
+                true -> spoofaxAnalysisDiagnosticService.diagnose(request)?.result()?.run {
+                    messages().map(diagnosticConverterService::convert)
+                } ?: emptyList<Diagnostic>()
+            }
+        } ?: emptyList<Diagnostic>()
     }
 }

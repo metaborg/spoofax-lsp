@@ -1,6 +1,7 @@
 package org.metaborg.spoofax.lsp.services.diagnostic
 
 import org.eclipse.lsp4j.Diagnostic
+import org.metaborg.spoofax.core.unit.ISpoofaxParseUnit
 import org.metaborg.spoofax.lsp.services.AnalysisRequestObject
 
 /**
@@ -9,6 +10,6 @@ import org.metaborg.spoofax.lsp.services.AnalysisRequestObject
  */
 interface SpoofaxParserDiagnosticService {
 
-    fun performParsing(request : AnalysisRequestObject): List<Diagnostic>
+    fun performParsing(request : AnalysisRequestObject): ISpoofaxParseUnit?
 
 }
