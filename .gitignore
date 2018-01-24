@@ -1,3 +1,4 @@
 # we don't need .idea or target folders in our repository
 .idea/
 target/
+*.iml
