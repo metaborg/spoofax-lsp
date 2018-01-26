@@ -1,6 +1,5 @@
 package org.metaborg.spoofax.lsp.services
 
-import org.apache.commons.vfs2.FileObject
 import org.metaborg.core.project.IProject
 import org.metaborg.spoofax.core.unit.ISpoofaxInputUnit
 import org.metaborg.spoofax.core.unit.ISpoofaxParseUnit
@@ -11,6 +10,5 @@ import org.metaborg.spoofax.core.unit.ISpoofaxParseUnit
 class AnalysisRequestObject(
         val inputUnit: ISpoofaxInputUnit,
         var parseUnit: ISpoofaxParseUnit?,
-        var project : IProject?,
-        val root : FileObject
+        var project: IProject?
 )

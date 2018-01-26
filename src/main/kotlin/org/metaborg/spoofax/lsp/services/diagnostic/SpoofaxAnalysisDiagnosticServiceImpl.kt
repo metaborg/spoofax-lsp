@@ -11,8 +11,8 @@ import org.metaborg.spoofax.lsp.services.AnalysisRequestObject
 import org.slf4j.Logger
 
 class SpoofaxAnalysisDiagnosticServiceImpl @Inject constructor(
-        val spoofaxAnalysisService: ISpoofaxAnalysisService,
-        val contextService : IContextService
+        private val spoofaxAnalysisService: ISpoofaxAnalysisService,
+        private val contextService : IContextService
 ) : SpoofaxAnalysisDiagnosticService {
 
     @Inject

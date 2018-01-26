@@ -6,9 +6,9 @@ import org.metaborg.spoofax.lsp.services.AnalysisRequestObject
 import org.metaborg.spoofax.lsp.services.converter.DiagnosticConverterService
 
 class SpoofaxDiagnosticServiceImpl @Inject constructor(
-        val spoofaxAnalysisDiagnosticService: SpoofaxAnalysisDiagnosticService,
-        val spoofaxParserDiagnosticService: SpoofaxParserDiagnosticService,
-        val diagnosticConverterService: DiagnosticConverterService
+        private val spoofaxAnalysisDiagnosticService: SpoofaxAnalysisDiagnosticService,
+        private val spoofaxParserDiagnosticService: SpoofaxParserDiagnosticService,
+        private val diagnosticConverterService: DiagnosticConverterService
 ): SpoofaxDiagnosticService {
     /**
      * Computes diagnostics, if Parsing succeeds then analysis is performed.
@@ -18,7 +18,8 @@ class SpoofaxDiagnosticServiceImpl @Inject constructor(
             when(success()) {
                 false ->
                     messages().map(diagnosticConverterService::convert)
-                true -> spoofaxAnalysisDiagnosticService.diagnose(request)?.result()?.run {
+                true ->
+                    spoofaxAnalysisDiagnosticService.diagnose(request)?.result()?.run {
                     messages().map(diagnosticConverterService::convert)
                 } ?: emptyList<Diagnostic>()
             }

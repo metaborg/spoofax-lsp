@@ -8,7 +8,7 @@ import org.metaborg.spoofax.lsp.services.AnalysisRequestObject
 import org.slf4j.Logger
 
 class SpoofaxParserDiagnosticServiceImpl @Inject constructor(
-        val syntaxService: ISpoofaxSyntaxService
+        private val syntaxService: ISpoofaxSyntaxService
 ) : SpoofaxParserDiagnosticService {
 
     @Inject
@@ -16,9 +16,9 @@ class SpoofaxParserDiagnosticServiceImpl @Inject constructor(
 
     override fun performParsing(request: AnalysisRequestObject): ISpoofaxParseUnit? {
         return try {
-            request.apply {
-                parseUnit = syntaxService.parse(inputUnit)
-            }.parseUnit
+            request.run {
+                return syntaxService.parse(inputUnit)
+            }
         } catch (ex : ParseException) {
             logger.error("Parsing {} failed, returning empty list. Failed with exception {}", request, ex).run { null }
         }

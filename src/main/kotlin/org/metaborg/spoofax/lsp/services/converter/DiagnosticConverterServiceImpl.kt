@@ -8,8 +8,8 @@ import org.slf4j.Logger
 
 @Singleton
 class DiagnosticConverterServiceImpl @Inject constructor(
-        val rangeConverterService: RangeConverterService,
-        val severityConverterService: SeverityConverterService
+        private val rangeConverterService: RangeConverterService,
+        private val severityConverterService: SeverityConverterService
 ) : DiagnosticConverterService {
 
     @Inject

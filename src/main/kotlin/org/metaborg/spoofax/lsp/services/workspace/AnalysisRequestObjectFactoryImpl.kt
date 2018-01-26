@@ -10,9 +10,9 @@ import org.slf4j.Logger
 import javax.inject.Inject
 
 class AnalysisRequestObjectFactoryImpl @Inject constructor(
-        val projectService: ISimpleProjectService,
-        val spoofaxInputUnitService: ISpoofaxInputUnitService,
-        val languageIdentifierService: ILanguageIdentifierService
+        private val projectService: ISimpleProjectService,
+        private val spoofaxInputUnitService: ISpoofaxInputUnitService,
+        private val languageIdentifierService: ILanguageIdentifierService
 ): AnalysisRequestObjectFactory {
 
     @com.google.inject.Inject
@@ -21,15 +21,14 @@ class AnalysisRequestObjectFactoryImpl @Inject constructor(
     override fun create(document: VirtualWorkspaceFileObject, root: FileObject): AnalysisRequestObject? {
         return try {
             AnalysisRequestObject(
-                spoofaxInputUnitService.inputUnit(
-                        document,
-                        document.document?.text,
-                        languageIdentifierService.identify(document),
-                        null
-                ),
-                null,
-                projectService[root],
-                root
+                    spoofaxInputUnitService.inputUnit(
+                            document,
+                            document.document?.text ?: "",
+                            languageIdentifierService.identify(document),
+                            null
+                    ),
+                    null,
+                    projectService[root]
             )
         } catch (ex : MetaborgException) {
             logger.error("Could not create request object with document {} and root {}, failed with {}",
